@@ -373,78 +373,81 @@ window.AP56 = function () {
     if (url.includes("/tarificador/simulador")) {
     // Observamos el stepper para saber en qué paso está el usuario
     const stepper = document.querySelector(".stepper__main-title-step");
-    if (stepper) {
-        // Función para comprobar el paso y mostrar el banner solo en Paso 1/4
-        const checkStep = () => {
-        const stepText = stepper.textContent.trim();
-        if (stepText.includes("Paso 1/4")) {
-            if (!document.querySelector("#J_contenedor_principal")) {
-            showWidgetAP56();
-            console.log("AP56: Banner mostrado en Paso 1/4 de p1");
+        if (stepper) {
+            // Función para comprobar el paso y mostrar el banner solo en Paso 1/4
+            const checkStep = () => {
+            const stepText = stepper.textContent.trim();
+            if (stepText.includes("Paso 1/4")) {
+                if (!document.querySelector("#J_contenedor_principal")) {
+                showWidgetAP56();
+                console.log("AP56: Banner mostrado en Paso 1/4 de p1");
+                }
+            } else {
+                // Si ya habíamos mostrado el banner y el usuario avanza, lo quitamos
+                const prev = document.querySelector("#J_contenedor_principal");
+                if (prev) {
+                prev.remove();
+                console.log("AP56: Banner ocultado porque ya no es Paso 1/4");
+                }
             }
-        } else {
-            // Si ya habíamos mostrado el banner y el usuario avanza, lo quitamos
-            const prev = document.querySelector("#J_contenedor_principal");
-            if (prev) {
-            prev.remove();
-            console.log("AP56: Banner ocultado porque ya no es Paso 1/4");
-            }
+            };
+
+            // Chequeo inicial
+            checkStep();
+
+            // Observar cambios en el contenido del stepper (ej. cuando avanzas pasos)
+            const obs = new MutationObserver(checkStep);
+            obs.observe(stepper, { childList: true, characterData: true, subtree: true });
         }
-        };
-
-        // Chequeo inicial
-        checkStep();
-
-        // Observar cambios en el contenido del stepper (ej. cuando avanzas pasos)
-        const obs = new MutationObserver(checkStep);
-        obs.observe(stepper, { childList: true, characterData: true, subtree: true });
-    }
     }
 
 
     // P2: pintar banner + capturar precio en click
     if (url.includes("/tarificador/precios")) {
         showWidgetAP56();
-
-        // Delegación de eventos: capturamos clicks en los botones "Me interesa"
-        // document.body.addEventListener("click", function (e) {
-        //     const btn = e.target.closest(".mat-mdc-button-persistent-ripple, .form__btn-interesting button");
-        //     if (!btn) return;
-
-        //     // buscamos el contenedor tarjeta más cercano
-        //     const card = btn.closest(".card-prices-content");
-        //     if (!card) return;
-
-        //     // dentro de esa tarjeta, cogemos su precio
-        //     const priceEl = card.querySelector(".discount-price");
-        //     if (priceEl) {
-        //         const priceText = priceEl.textContent.trim();
-        //         const match = priceText.match(/[\d,.]+/);
-        //         if (match) {
-        //             const price = parseFloat(match[0].replace(",", "."));
-        //             if (!isNaN(price)) {
-        //             savePrice(price);
-        //             console.log("AP56: precio guardado al click en Me interesa:", price);
-        //             }
-        //         }
-        //     }
-        // }, true); // uso capture para pillar clicks antes de que Angular pueda re-renderizar
     }
 
 
     // P3 → usar precio guardado
     if (url.includes("tarificador/contratar")) {
-        const precio = getPrice();
-        if (precio !== null) {
-            if (precio >= 100 && precio <= 300) {
-                showWidgetAP56Offer(10);
-            } else if (precio > 300) {
-                showWidgetAP56Offer(30);
-            } else {
-                console.log("Precio < 100 → no mostrar nada");
-            }
-        } else {
-            console.warn("No se encontró precio válido en sessionStorage");
+        // Observamos el stepper para saber en qué paso está el usuario
+        const stepper = document.querySelector(".stepper__main-title-step");
+        if (stepper) {
+            // Función para comprobar el paso y mostrar el banner solo en Paso 1/4
+            const checkStep = () => {
+                const stepText = stepper.textContent.trim();
+                if (stepText.includes("Paso 1/4")) {
+                    if (!document.querySelector("#J_contenedor_principal")) {
+                        const precio = getPrice();
+                        if (precio !== null) {
+                            if (precio >= 100 && precio <= 300) {
+                                showWidgetAP56Offer(10);
+                            } else if (precio > 300) {
+                                showWidgetAP56Offer(30);
+                            } else {
+                                console.log("Precio < 100 → no mostrar nada");
+                            }
+                        } else {
+                            console.warn("No se encontró precio válido en sessionStorage");
+                        }
+                        console.log("AP56: Banner mostrado en Paso 1/4 de p3");
+                    }
+                } else {
+                    // Si ya habíamos mostrado el banner y el usuario avanza, lo quitamos
+                    const prev = document.querySelector("#J_contenedor_principal");
+                    if (prev) {
+                        prev.remove();
+                        console.log("AP56: Banner ocultado porque ya no es Paso 1/4");
+                    }
+                }
+            };
+
+            // Chequeo inicial
+            checkStep();
+
+            // Observar cambios en el contenido del stepper (ej. cuando avanzas pasos)
+            const obs = new MutationObserver(checkStep);
+            obs.observe(stepper, { childList: true, characterData: true, subtree: true });
         }
     }
 
