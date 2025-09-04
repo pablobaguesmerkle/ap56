@@ -448,21 +448,21 @@ window.AP56 = function () {
     }
 
     // P4 → usar precio guardado
-    if (url.includes("tarificador/contratar")) { // CAMBIAR URL POR LA DE P4
-        const precio = getPrice();
-        if (precio !== null) {
-            if (precio >= 100 && precio <= 300) {
-                showWidgetAP56Op4(10);
-            } else if (precio > 300) {
-                showWidgetAP56Op4(30);
-            } else {
-                console.log("Precio < 100 → no mostrar nada");
-            }
-        } else {
-            console.warn("No se encontró precio válido en sessionStorage");
-        }
-    }
-}
+//     if (url.includes("tarificador/contratar")) { // CAMBIAR URL POR LA DE P4
+//         const precio = getPrice();
+//         if (precio !== null) {
+//             if (precio >= 100 && precio <= 300) {
+//                 showWidgetAP56Op4(10);
+//             } else if (precio > 300) {
+//                 showWidgetAP56Op4(30);
+//             } else {
+//                 console.log("Precio < 100 → no mostrar nada");
+//             }
+//         } else {
+//             console.warn("No se encontró precio válido en sessionStorage");
+//         }
+//     }
+// }
 
 function loadBanner() {
   if (!document.querySelector("#J_contenedor_principal")) {
