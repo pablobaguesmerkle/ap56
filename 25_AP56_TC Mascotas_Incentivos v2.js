@@ -357,16 +357,14 @@ window.AP56 = function () {
                 </div>
             </div>
             `;
-        const anchor = document.querySelector(".main__container .content") || document.querySelector(".main__container");
-        if (anchor) {
-        const prev = document.querySelector("#J_contenedor_principal");
-        if (prev) prev.remove();
-
         const anchor = document.querySelector("ntc-m-sumary-carousel");
-        const where = anchor ? "afterend" : "afterbegin";
-        anchor.insertAdjacentHTML(where, widget_AP56_offer);
+        if (anchor) {
+            const prev = document.querySelector("#J_contenedor_principal");
+        if (prev) prev.remove();
+            const where = anchor ? "afterend" : "afterbegin";
+            anchor.insertAdjacentHTML(where, widget_AP56_offer);
         } else {
-        console.warn("AP56: no encontré .main__container para montar el banner de oferta");
+            console.warn("AP56: no encontré .main__container para montar el banner de oferta");
         }
     }
 
