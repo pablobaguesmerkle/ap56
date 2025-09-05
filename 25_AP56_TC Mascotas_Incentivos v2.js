@@ -450,10 +450,10 @@ window.AP56 = function () {
         // Observamos el stepper para saber en qué paso está el usuario
         const stepper = document.querySelector(".stepper__main-title-step");
         if (stepper) {
-            // Función para comprobar el paso y mostrar el banner solo en Paso 1/4
+            // Función para comprobar el paso y mostrar el banner solo en Paso 4/4
             const checkStep = () => {
                 const stepText = stepper.textContent.trim();
-                if (stepText.includes("Paso 1/4")) {
+                if (stepText.includes("Paso 4/4")) {
                     if (!document.querySelector("#J_contenedor_principal")) {
                         const precio = getPrice();
                         if (precio !== null) {
@@ -467,14 +467,14 @@ window.AP56 = function () {
                         } else {
                             console.warn("No se encontró precio válido en sessionStorage");
                         }
-                        console.log("AP56: Banner mostrado en Paso 1/4 de p3");
+                        console.log("AP56: Banner mostrado en Paso 4/4 de p3");
                     }
                 } else {
                     // Si ya habíamos mostrado el banner y el usuario avanza, lo quitamos
                     const prev = document.querySelector("#J_contenedor_principal");
                     if (prev) {
                         prev.remove();
-                        console.log("AP56: Banner ocultado porque ya no es Paso 1/4");
+                        console.log("AP56: Banner ocultado porque ya no es Paso 4/4");
                     }
                 }
             };
