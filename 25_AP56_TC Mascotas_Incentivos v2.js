@@ -140,6 +140,7 @@ window.AP56 = function () {
             background-color: #D81E05;
             color: white;
             border-top-left-radius: 15px;
+            align-content: center;
         }
         #J_porcentaje_1{
             font-family: 'DM Sans';
