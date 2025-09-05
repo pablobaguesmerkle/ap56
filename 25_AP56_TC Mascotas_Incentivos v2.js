@@ -79,6 +79,12 @@ window.AP56 = function () {
     const style = document.createElement("style");
     style.id = "AP56_incentivo";
     style.innerHTML = `
+        .main__container .form__container {
+            margin-top: 0 !important;
+        }
+        .content .notification-accept {
+            margin-top: 0 !important;
+        }
         .J_banner_offer #J_porcentaje{
             background-color: #fff !important;
             color: #D81E05 !important;
@@ -321,7 +327,7 @@ window.AP56 = function () {
                             <img src="${img}">
                         </div> 
                         <hr id="J_barra"></hr>
-                        <span id="J_texto_2">Oferta válida a partir de 100€ hasta el 31/12/2025. Consulta las <a href="#">bases legales</a>.</span>
+                        <span id="J_texto_2">Oferta válida hasta el 31/12/2025. Consulta las <a href="#">bases legales</a>.</span>
                 </div>
             </div>
             `;
