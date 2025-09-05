@@ -126,7 +126,7 @@ window.AP56 = function () {
             margin-right: auto;
             display: block;
         }
-        .J_banner_offer {
+        .J_banner_offer_p4 {
             margin-top: 0;
             margin-bottom: 40px !important;
             height: 130px !important;
