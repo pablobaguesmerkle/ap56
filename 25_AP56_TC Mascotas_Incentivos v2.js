@@ -141,6 +141,7 @@ window.AP56 = function () {
             border-bottom: 1px solid #CCCFD2;
             border-bottom-right-radius: 10px;
             padding: 6px 10px;
+            align-content: center;
         }
         .J_texto_title {
             display: flex;
