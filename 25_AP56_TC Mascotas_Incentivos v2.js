@@ -338,7 +338,7 @@ window.AP56 = function () {
         }
     }
 
-        function showWidgetAP56Op4(offer) {
+    function showWidgetAP56Op4(offer) {
         console.log("Mostrar widget_AP56_p4");
         let widget_AP56_offer = `
             <div id="J_contenedor_principal" class="J_banner_offer">
@@ -358,7 +358,7 @@ window.AP56 = function () {
                 </div>
             </div>
             `;
-        const anchor = document.querySelector("ntc-m-sumary-carousel");
+        const anchor = document.querySelector("ntc-m-summary-carousel");
         console.log("anchor -->", anchor);
         if (anchor) {
             const prev = document.querySelector("#J_contenedor_principal");
