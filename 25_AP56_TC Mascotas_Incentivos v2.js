@@ -1,47 +1,73 @@
-console.log('AP56 loader');
-
-if (!window._AP56_global_click_listener) {
-  window._AP56_global_click_listener = true;
-
-  document.body.addEventListener('click', function (e) {
-    try {
-      // Solo actuamos si estamos en la página de precios (p2)
-      if (!window.location.href.includes('/tarificador/precios')) return;
-
-      // Capturamos clicks en el botón (o en el span dentro del botón)
-      const clicked = e.target.closest('button, .mat-mdc-button-persistent-ripple');
-      if (!clicked) return;
-
-      // Subimos hasta la tarjeta correspondiente
-      const card = clicked.closest('.card-prices-content');
-      if (!card) return;
-
-      // Leemos el precio de esa tarjeta
-      const priceEl = card.querySelector('.discount-price');
-      if (!priceEl) return;
-
-      const txt = priceEl.textContent.trim();
-      const m = txt.match(/[\d.,]+/);
-      if (!m) return;
-
-      const price = parseFloat(m[0].replace(',', '.'));
-      if (isNaN(price)) return;
-
-      // Guardamos en sessionStorage (misma clave que usas en el script)
-      sessionStorage.setItem('tarificador_price', String(price));
-      sessionStorage.setItem('tarificador_price_time', String(Date.now()));
-
-      console.log('AP56: precio guardado (listener global):', price);
-    } catch (err) {
-      console.error('AP56: error guardando precio (global listener)', err);
-    }
-  }, true); // capture = true para ejecutarse antes de que Angular intercepte/navegue
-}
-
 /** 
  * 25_AP56_TC Mascotas_Incentivos
  * 4548812049400004
  */
+
+console.log('AP56 loader');
+if (!window._AP56_global_click_listener) {
+  window._AP56_global_click_listener = true;
+
+  document.body.addEventListener(
+    "click",
+    function (e) {
+      try {
+        // Solo actuamos si estamos en la página de precios (p2)
+        if (!window.location.href.includes("/tarificador/precios")) return;
+
+        // Capturamos clicks en el botón (o en el span dentro del botón)
+        const clicked = e.target.closest(
+          "button, .mat-mdc-button-persistent-ripple"
+        );
+        if (!clicked) return;
+
+        // Subimos hasta la tarjeta correspondiente
+        const card = clicked.closest(".card-prices-content");
+        if (!card) return;
+
+        // Leemos el precio de esa tarjeta
+        const priceEl = card.querySelector(".discount-price");
+        if (!priceEl) return;
+
+        const txt = priceEl.textContent.trim();
+        const m = txt.match(/[\d.,]+/);
+        if (!m) return;
+
+        const price = parseFloat(m[0].replace(",", "."));
+        if (isNaN(price)) return;
+
+        // 🔹 Detectar la pestaña activa (Anual, Semestral o Trimestral)
+        const activeTab = document.querySelector(
+          ".mat-button-toggle-checked .mat-button-toggle-label-content"
+        );
+        const tabText = activeTab?.innerText.trim().toLowerCase();
+
+        let adjustedPrice = price;
+        if (tabText === "semestral") {
+          adjustedPrice = price * 2;
+        } else if (tabText === "trimestral") {
+          adjustedPrice = price * 4;
+        }
+        // Si es anual, dejamos el valor tal cual
+
+        // Guardamos en sessionStorage (misma clave que usas en el script)
+        sessionStorage.setItem("tarificador_price", String(adjustedPrice));
+        sessionStorage.setItem(
+          "tarificador_price_time",
+          String(Date.now())
+        );
+
+        console.log(
+          `AP56: precio guardado (listener global, ${tabText || "anual"}):`,
+          adjustedPrice
+        );
+      } catch (err) {
+        console.error("AP56: error guardando precio (global listener)", err);
+      }
+    },
+    true // capture = true para ejecutarse antes de que Angular intercepte/navegue
+  );
+}
+
 var timeout = 10000;
 var interval = 200;
 var elapsedTime = 0;
@@ -100,6 +126,12 @@ window.AP56 = function () {
             margin-right: auto;
             display: block;
         }
+        .J_banner_offer {
+            margin-top: 0;
+            margin-bottom: 40px !important;
+            height: 130px !important;
+        }
+
         #J_porcentaje{
             width: 29%;
             height: 100%;
@@ -341,7 +373,7 @@ window.AP56 = function () {
     function showWidgetAP56Op4(offer) {
         console.log("Mostrar widget_AP56_p4");
         let widget_AP56_offer = `
-            <div id="J_contenedor_principal" class="J_banner_offer">
+            <div id="J_contenedor_principal" class="J_banner_offer J_banner_offer_p4">
                 <div id="J_porcentaje">
                     <p style="height: 100%; margin: 0%">
                         <span id="J_porcentaje_1">${offer}€</span>
