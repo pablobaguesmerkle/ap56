@@ -79,12 +79,6 @@ window.AP56 = function () {
     const style = document.createElement("style");
     style.id = "AP56_incentivo";
     style.innerHTML = `
-        .main__container .form__container {
-            margin-top: 0 !important;
-        }
-        .content .notification-accept {
-            margin-top: 0 !important;
-        }
         .J_banner_offer #J_porcentaje{
             background-color: #fff !important;
             color: #D81E05 !important;
@@ -101,7 +95,7 @@ window.AP56 = function () {
             font-family: sans-serif;
             text-align: center;
             margin-top: 24px;
-            margin-bottom: 24px;
+            margin-bottom: 8px;
             margin-left: auto;
             margin-right: auto;
             display: block;
