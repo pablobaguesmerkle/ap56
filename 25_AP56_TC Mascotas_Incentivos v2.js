@@ -359,11 +359,14 @@ window.AP56 = function () {
             </div>
             `;
         const anchor = document.querySelector("ntc-m-sumary-carousel");
+        console.log("anchor -->", anchor);
         if (anchor) {
             const prev = document.querySelector("#J_contenedor_principal");
         if (prev) prev.remove();
-            const where = anchor ? "afterend" : "afterbegin";
-            anchor.insertAdjacentHTML(where, widget_AP56_offer);
+
+        const where = anchor ? "afterend" : "afterbegin";
+        console.log("where -->", where);
+        anchor.insertAdjacentHTML(where, widget_AP56_offer);
         } else {
             console.warn("AP56: no encontré .main__container para montar el banner de oferta");
         }
