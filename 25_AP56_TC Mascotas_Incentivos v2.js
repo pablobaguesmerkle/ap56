@@ -454,7 +454,9 @@ window.AP56 = function () {
 
     // P4 → usar precio guardado
     if (url.includes("tarificador/resultado")) { // CAMBIAR URL POR LA DE P4
+        console.log("AP56: Estamos en P4");
         const precio = getPrice();
+        console.log("Precio -->" + precio);
         if (precio !== null) {
             if (precio >= 100 && precio <= 300) {
                 showWidgetAP56Op4(10);
